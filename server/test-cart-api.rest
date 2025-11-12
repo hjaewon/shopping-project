@@ -1,0 +1,91 @@
+### Shopping Mall - Cart API 테스트
+### VS Code REST Client Extension 사용
+
+@baseUrl = http://localhost:5001/api
+@token = YOUR_JWT_TOKEN_HERE
+
+### ============================================
+### 1. 장바구니 조회
+### ============================================
+GET {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+
+### ============================================
+### 2. 장바구니 아이템 개수 조회
+### ============================================
+GET {{baseUrl}}/cart/count
+Authorization: Bearer {{token}}
+
+### ============================================
+### 3. 장바구니에 상품 추가
+### ============================================
+POST {{baseUrl}}/cart/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": "상품_ID_입력",
+  "quantity": 1,
+  "selectedColor": "흰색",
+  "selectedSize": "M"
+}
+
+### ============================================
+### 4. 장바구니에 상품 추가 (색상/사이즈만 다름)
+### ============================================
+POST {{baseUrl}}/cart/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": "상품_ID_입력",
+  "quantity": 2,
+  "selectedColor": "검은색",
+  "selectedSize": "L"
+}
+
+### ============================================
+### 5. 장바구니 아이템 수량 변경
+### ============================================
+PATCH {{baseUrl}}/cart/items/아이템_ID_입력
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "quantity": 3
+}
+
+### ============================================
+### 6. 장바구니 아이템 삭제
+### ============================================
+DELETE {{baseUrl}}/cart/items/아이템_ID_입력
+Authorization: Bearer {{token}}
+
+### ============================================
+### 7. 장바구니 비우기
+### ============================================
+DELETE {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+
+### ============================================
+### 테스트 시나리오 예시
+### ============================================
+
+# 1단계: 사용자 로그인
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "test123"
+}
+
+# 2단계: 응답에서 받은 토큰을 위의 @token 변수에 복사
+
+# 3단계: 상품 목록 조회 (상품 ID 확인)
+GET {{baseUrl}}/products
+
+# 4단계: 장바구니에 상품 추가
+# 5단계: 장바구니 조회로 확인
+# 6단계: 수량 변경 또는 삭제 테스트
+

@@ -1,0 +1,219 @@
+/* ==================== 네비게이션 바 ==================== */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* 로고 섹션 */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.logo-box {
+  background-color: #000000;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.logo-text {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.brand-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* 중앙 메뉴 */
+.navbar-center {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: #000000;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #666666;
+}
+
+/* 우측 아이콘 및 유저 메뉴 */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.icon-btn:hover {
+  color: #666666;
+}
+
+/* 장바구니 뱃지 */
+.cart-btn {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  background-color: #d32f2f;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.35rem;
+  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+  padding: 0.6rem 1.5rem;
+  background-color: #000000;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.login-btn:hover {
+  background-color: #333333;
+}
+
+/* 유저 메뉴 */
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-welcome {
+  font-size: 0.9rem;
+  color: #000000;
+  font-weight: 500;
+}
+
+.admin-btn {
+  padding: 0.5rem 1rem;
+  background-color: #1976d2;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.admin-btn:hover {
+  background-color: #1565c0;
+}
+
+.logout-btn-small {
+  padding: 0.5rem 1rem;
+  background-color: #f5f5f5;
+  color: #000000;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-btn-small:hover {
+  background-color: #e0e0e0;
+}
+
+/* ==================== 반응형 디자인 ==================== */
+@media (max-width: 992px) {
+  .navbar-center {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-menu {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+  
+  .navbar-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-right {
+    gap: 0.5rem;
+  }
+  
+  .user-welcome {
+    font-size: 0.8rem;
+  }
+  
+  .admin-btn,
+  .logout-btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+
+
+

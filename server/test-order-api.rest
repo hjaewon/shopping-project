@@ -1,0 +1,101 @@
+### 주문 API 테스트
+
+@baseUrl = http://localhost:5001/api
+@token = YOUR_JWT_TOKEN_HERE
+@adminToken = YOUR_ADMIN_JWT_TOKEN_HERE
+@orderId = YOUR_ORDER_ID_HERE
+
+### 1. 주문 생성 (POST /api/orders)
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "items": [
+    {
+      "product": "PRODUCT_ID_HERE",
+      "quantity": 2,
+      "selectedSize": "M"
+    },
+    {
+      "product": "ANOTHER_PRODUCT_ID_HERE",
+      "quantity": 1,
+      "selectedSize": "L"
+    }
+  ],
+  "shippingInfo": {
+    "recipientName": "홍길동",
+    "recipientPhone": "010-1234-5678",
+    "address": "서울시 강남구 테헤란로 123",
+    "postalCode": "06234",
+    "deliveryRequest": "부재 시 문앞에 놓아주세요"
+  },
+  "payment": {
+    "method": "card"
+  }
+}
+
+### 2. 내 주문 목록 조회 (GET /api/orders)
+GET {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+
+### 3. 주문 상세 조회 (GET /api/orders/:orderId)
+GET {{baseUrl}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
+
+### 4. 주문 취소 (PATCH /api/orders/:orderId/cancel)
+PATCH {{baseUrl}}/orders/{{orderId}}/cancel
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "cancelReason": "단순 변심"
+}
+
+### ============ 관리자 전용 API ============
+
+### 5. 결제 완료 처리 (PATCH /api/orders/:orderId/payment) - 관리자
+PATCH {{baseUrl}}/orders/{{orderId}}/payment
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "transactionId": "TXN-20251112-12345"
+}
+
+### 6. 주문 상태 변경 (PATCH /api/orders/:orderId/status) - 관리자
+PATCH {{baseUrl}}/orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "status": "preparing"
+}
+
+### 7. 배송 시작 (PATCH /api/orders/:orderId/shipping) - 관리자
+PATCH {{baseUrl}}/orders/{{orderId}}/shipping
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "carrier": "CJ대한통운",
+  "trackingNumber": "123456789012"
+}
+
+### 8. 배송 완료 (PATCH /api/orders/:orderId/delivery) - 관리자
+PATCH {{baseUrl}}/orders/{{orderId}}/delivery
+Authorization: Bearer {{adminToken}}
+
+### 9. 모든 주문 조회 (GET /api/orders/admin/all) - 관리자
+GET {{baseUrl}}/orders/admin/all
+Authorization: Bearer {{adminToken}}
+
+### ============ 주문 상태 흐름 ============
+# pending (주문 생성) 
+#   -> confirmed (결제 완료) 
+#   -> preparing (배송 준비 중) 
+#   -> shipping (배송 중) 
+#   -> delivered (배송 완료)
+# 
+# 또는 cancelled (취소)
+

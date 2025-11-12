@@ -1,0 +1,199 @@
+### REST API 테스트 파일 (VSCode REST Client 확장 필요)
+### 서버 실행: cd server && npm run dev
+
+### 변수 설정
+@baseUrl = http://localhost:5001/api
+@contentType = application/json
+
+### ========================================
+### 1. 상품 등록 (CREATE)
+### ========================================
+
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "sku": "TOP001",
+  "name": "베이직 반팔 티셔츠",
+  "price": 29000,
+  "category": "상의",
+  "image": "https://via.placeholder.com/300",
+  "description": "편안한 면 소재의 베이직 티셔츠입니다",
+  "stock": 100
+}
+
+###
+
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "sku": "BOTTOM001",
+  "name": "슬림 청바지",
+  "price": 79000,
+  "category": "하의",
+  "image": "https://via.placeholder.com/300",
+  "description": "슬림핏 스타일의 데님 청바지",
+  "stock": 50
+}
+
+###
+
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "sku": "ACC001",
+  "name": "가죽 벨트",
+  "price": 35000,
+  "category": "악세사리",
+  "image": "https://via.placeholder.com/300",
+  "description": "고급 소가죽으로 만든 벨트",
+  "stock": 30
+}
+
+###
+
+# SKU 중복 테스트 (에러 발생해야 함)
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "sku": "TOP001",
+  "name": "중복 상품",
+  "price": 10000,
+  "category": "상의",
+  "image": "https://via.placeholder.com/300"
+}
+
+###
+
+# 필수 필드 누락 테스트 (에러 발생해야 함)
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "sku": "TOP002",
+  "name": "상품명만 있는 상품"
+}
+
+### ========================================
+### 2. 전체 상품 조회 (READ ALL)
+### ========================================
+
+GET {{baseUrl}}/products
+
+###
+
+# 페이지네이션
+GET {{baseUrl}}/products?page=1&limit=5
+
+###
+
+# 카테고리 필터
+GET {{baseUrl}}/products?category=상의
+
+###
+
+# 가격 범위 필터
+GET {{baseUrl}}/products?minPrice=20000&maxPrice=50000
+
+###
+
+# 검색
+GET {{baseUrl}}/products?search=티셔츠
+
+###
+
+# 복합 필터 (카테고리 + 가격 범위)
+GET {{baseUrl}}/products?category=하의&minPrice=50000&maxPrice=100000
+
+### ========================================
+### 3. 특정 상품 조회 (READ ONE)
+### ========================================
+
+# SKU로 조회
+GET {{baseUrl}}/products/sku/TOP001
+
+###
+
+# ID로 조회 (실제 MongoDB ID로 변경 필요)
+GET {{baseUrl}}/products/67823b4c5e1d2a3f4b5c6d7e
+
+### ========================================
+### 4. 상품 수정 (UPDATE)
+### ========================================
+
+# 전체 정보 수정 (실제 ID로 변경 필요)
+PUT {{baseUrl}}/products/67823b4c5e1d2a3f4b5c6d7e
+Content-Type: {{contentType}}
+
+{
+  "name": "프리미엄 반팔 티셔츠",
+  "price": 39000,
+  "description": "프리미엄 면 소재로 업그레이드된 티셔츠",
+  "stock": 150
+}
+
+###
+
+# 재고만 수정
+PATCH {{baseUrl}}/products/67823b4c5e1d2a3f4b5c6d7e/stock
+Content-Type: {{contentType}}
+
+{
+  "stock": 200
+}
+
+### ========================================
+### 5. 상품 삭제 (DELETE)
+### ========================================
+
+# 소프트 삭제 (isActive를 false로 변경)
+DELETE {{baseUrl}}/products/67823b4c5e1d2a3f4b5c6d7e
+
+###
+
+# 영구 삭제 (실제 데이터베이스에서 삭제)
+DELETE {{baseUrl}}/products/67823b4c5e1d2a3f4b5c6d7e/permanent
+
+### ========================================
+### 6. 에러 케이스 테스트
+### ========================================
+
+# 존재하지 않는 카테고리
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "sku": "TEST001",
+  "name": "테스트 상품",
+  "price": 10000,
+  "category": "존재하지않는카테고리",
+  "image": "https://via.placeholder.com/300"
+}
+
+###
+
+# 음수 가격
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "sku": "TEST002",
+  "name": "음수 가격 상품",
+  "price": -5000,
+  "category": "상의",
+  "image": "https://via.placeholder.com/300"
+}
+
+###
+
+# 존재하지 않는 상품 조회
+GET {{baseUrl}}/products/sku/NOTEXIST123
+
+###
+
+# 잘못된 ID 형식
+GET {{baseUrl}}/products/invalid-id-format
+
