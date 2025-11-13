@@ -22,15 +22,15 @@ const HeartIcon = () => (
 )
 
 // 제품 카드 컴포넌트 분리 및 메모이제이션
-const ProductCard = memo(({ product, onClick }) => (
+const ProductCard = memo(({ product, onClick, isWishlisted, onToggleWishlist, user }) => (
   <div className="product-card" onClick={() => onClick(product._id)}>
     <div className="product-image">
       <button 
-        className="favorite-btn" 
-        aria-label="좋아요"
+        className={`favorite-btn ${isWishlisted ? 'active' : ''}`}
+        aria-label="찜하기"
         onClick={(e) => {
           e.stopPropagation()
-          // 찜하기 기능은 나중에 구현
+          onToggleWishlist(product._id)
         }}
       >
         <HeartIcon />
@@ -76,6 +76,8 @@ function Home() {
   const [priceRange, setPriceRange] = useState([0, 200000])
   const [products, setProducts] = useState([])
   const [productsLoading, setProductsLoading] = useState(false)
+  const [wishlist, setWishlist] = useState([])
+  const [wishlistLoading, setWishlistLoading] = useState(false)
 
   useEffect(() => {
     // 토큰 확인 및 유저 정보 가져오기
@@ -120,6 +122,32 @@ function Home() {
     fetchProducts()
   }, [])
 
+  // 위시리스트 가져오기
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      if (!user) {
+        setWishlist([])
+        return
+      }
+
+      try {
+        setWishlistLoading(true)
+        const response = await axios.get('/wishlist')
+        if (response.data.success) {
+          const wishlistItems = response.data.data.items || []
+          const productIds = wishlistItems.map(item => item.product?._id || item.product).filter(Boolean)
+          setWishlist(productIds)
+        }
+      } catch (error) {
+        console.error('위시리스트 조회 실패:', error)
+      } finally {
+        setWishlistLoading(false)
+      }
+    }
+
+    fetchWishlist()
+  }, [user])
+
   // useCallback으로 함수 메모이제이션
   const handleLogout = useCallback(() => {
     localStorage.removeItem('token')
@@ -139,6 +167,36 @@ function Home() {
   const handleProductClick = useCallback((productId) => {
     navigate(`/product/${productId}`)
   }, [navigate])
+
+  // 찜하기 토글
+  const handleToggleWishlist = async (productId) => {
+    if (!user) {
+      alert('로그인이 필요합니다.')
+      navigate('/login')
+      return
+    }
+
+    try {
+      const isCurrentlyWishlisted = wishlist.includes(productId)
+
+      if (isCurrentlyWishlisted) {
+        // 찜하기 제거
+        const response = await axios.delete(`/wishlist/items/${productId}`)
+        if (response.data.success) {
+          setWishlist(prev => prev.filter(id => id !== productId))
+        }
+      } else {
+        // 찜하기 추가
+        const response = await axios.post('/wishlist/items', { productId })
+        if (response.data.success) {
+          setWishlist(prev => [...prev, productId])
+        }
+      }
+    } catch (error) {
+      console.error('찜하기 처리 실패:', error)
+      alert(error.response?.data?.message || '찜하기 처리에 실패했습니다.')
+    }
+  }
 
   // 필터링된 상품 목록
   const filteredProducts = products.filter(product => {
@@ -234,6 +292,9 @@ function Home() {
                   key={product._id} 
                   product={product}
                   onClick={handleProductClick}
+                  isWishlisted={wishlist.includes(product._id)}
+                  onToggleWishlist={handleToggleWishlist}
+                  user={user}
                 />
               ))}
             </div>

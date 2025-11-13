@@ -10,6 +10,7 @@ import Cart from './pages/Cart'
 import Order from './pages/Order'
 import OrderSuccess from './pages/OrderSuccess'
 import MyOrders from './pages/MyOrders'
+import MyWishlist from './pages/MyWishlist'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/order/success" element={<OrderSuccess />} />
         <Route path="/orders" element={<MyOrders />} />
+        <Route path="/wishlist" element={<MyWishlist />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />

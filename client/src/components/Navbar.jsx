@@ -28,19 +28,57 @@ const UserIcon = () => (
 
 // 유저 메뉴 컴포넌트
 const UserMenu = memo(({ user, onLogout, navigate }) => {
+  const [showMyMenu, setShowMyMenu] = useState(false)
+
+  // 외부 클릭 시 메뉴 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showMyMenu && !event.target.closest('.my-dropdown')) {
+        setShowMyMenu(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [showMyMenu])
+
   return (
     <div className="user-menu">
       <span className="user-welcome">{user.name}님 환영합니다</span>
       
-      {/* 마이 버튼 (모든 유저) */}
-      <button 
-        className="my-btn" 
-        onClick={() => navigate('/orders')}
-        title="마이페이지"
-      >
-        <UserIcon />
-        <span>마이</span>
-      </button>
+      {/* 마이 드롭다운 (모든 유저) */}
+      <div className="my-dropdown">
+        <button 
+          className="my-btn" 
+          onClick={() => setShowMyMenu(!showMyMenu)}
+          title="마이페이지"
+        >
+          <UserIcon />
+          <span>마이</span>
+        </button>
+        {showMyMenu && (
+          <div className="my-menu">
+            <button 
+              className="my-menu-item"
+              onClick={() => {
+                navigate('/orders')
+                setShowMyMenu(false)
+              }}
+            >
+              주문 내역
+            </button>
+            <button 
+              className="my-menu-item"
+              onClick={() => {
+                navigate('/wishlist')
+                setShowMyMenu(false)
+              }}
+            >
+              찜한 상품
+            </button>
+          </div>
+        )}
+      </div>
 
       {/* 어드민 버튼 (관리자만) */}
       {user.user_type === 'admin' && (

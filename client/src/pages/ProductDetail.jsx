@@ -32,6 +32,8 @@ function ProductDetail() {
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedSize, setSelectedSize] = useState('M')
   const [quantity, setQuantity] = useState(1)
+  const [isWishlisted, setIsWishlisted] = useState(false)
+  const [wishlistLoading, setWishlistLoading] = useState(false)
   
   // 사이즈 옵션
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
@@ -78,6 +80,24 @@ function ProductDetail() {
     fetchProduct()
   }, [id, navigate])
 
+  // 찜하기 여부 확인
+  useEffect(() => {
+    const checkWishlist = async () => {
+      if (!user || !id) return
+
+      try {
+        const response = await axios.get(`/wishlist/check/${id}`)
+        if (response.data.success) {
+          setIsWishlisted(response.data.data.isWishlisted)
+        }
+      } catch (error) {
+        console.error('찜하기 확인 실패:', error)
+      }
+    }
+
+    checkWishlist()
+  }, [user, id])
+
   const handleLogout = useCallback(() => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
@@ -93,6 +113,39 @@ function ProductDetail() {
     const newQuantity = quantity + delta
     if (newQuantity >= 1 && newQuantity <= 99) {
       setQuantity(newQuantity)
+    }
+  }
+
+  const handleToggleWishlist = async () => {
+    if (!user) {
+      alert('로그인이 필요합니다.')
+      navigate('/login')
+      return
+    }
+
+    try {
+      setWishlistLoading(true)
+      
+      if (isWishlisted) {
+        // 찜하기 제거
+        const response = await axios.delete(`/wishlist/items/${id}`)
+        if (response.data.success) {
+          setIsWishlisted(false)
+          alert('찜한 상품에서 제거되었습니다.')
+        }
+      } else {
+        // 찜하기 추가
+        const response = await axios.post('/wishlist/items', { productId: id })
+        if (response.data.success) {
+          setIsWishlisted(true)
+          alert('찜한 상품에 추가되었습니다.')
+        }
+      }
+    } catch (error) {
+      console.error('찜하기 처리 실패:', error)
+      alert(error.response?.data?.message || '찜하기 처리에 실패했습니다.')
+    } finally {
+      setWishlistLoading(false)
     }
   }
 
@@ -126,7 +179,7 @@ function ProductDetail() {
   }
 
   const handleWishlist = () => {
-    alert('찜하기 기능은 준비중입니다.')
+    handleToggleWishlist()
   }
 
   if (loading) {
@@ -245,9 +298,13 @@ function ProductDetail() {
             <button className="add-to-cart-btn" onClick={handleAddToCart}>
               장바구니 추가
             </button>
-            <button className="wishlist-btn" onClick={handleWishlist}>
+            <button 
+              className={`wishlist-btn ${isWishlisted ? 'active' : ''}`}
+              onClick={handleWishlist}
+              disabled={wishlistLoading}
+            >
               <HeartIcon />
-              <span>찜하기</span>
+              <span>{isWishlisted ? '찜 완료' : '찜하기'}</span>
             </button>
           </div>
 

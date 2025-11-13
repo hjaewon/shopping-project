@@ -235,7 +235,17 @@
 }
 
 .favorite-btn svg {
-  color: #000000;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.favorite-btn:hover svg {
+  color: #ff4757;
+}
+
+.favorite-btn.active svg {
+  fill: #ff4757;
+  color: #ff4757;
 }
 
 .placeholder-image {
