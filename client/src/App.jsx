@@ -9,6 +9,7 @@ import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import Order from './pages/Order'
 import OrderSuccess from './pages/OrderSuccess'
+import MyOrders from './pages/MyOrders'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/order/success" element={<OrderSuccess />} />
+        <Route path="/orders" element={<MyOrders />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />

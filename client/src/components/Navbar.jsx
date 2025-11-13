@@ -19,16 +19,44 @@ const CartIcon = () => (
   </svg>
 )
 
+const UserIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+)
+
 // 유저 메뉴 컴포넌트
-const UserMenu = memo(({ user, onLogout }) => (
-  <div className="user-menu">
-    <span className="user-welcome">{user.name}님 환영합니다</span>
-    {user.user_type === 'admin' && (
-      <Link to="/admin" className="admin-btn">어드민</Link>
-    )}
-    <button onClick={onLogout} className="logout-btn-small">로그아웃</button>
-  </div>
-))
+const UserMenu = memo(({ user, onLogout, navigate }) => {
+  return (
+    <div className="user-menu">
+      <span className="user-welcome">{user.name}님 환영합니다</span>
+      
+      {/* 마이 버튼 (모든 유저) */}
+      <button 
+        className="my-btn" 
+        onClick={() => navigate('/orders')}
+        title="마이페이지"
+      >
+        <UserIcon />
+        <span>마이</span>
+      </button>
+
+      {/* 어드민 버튼 (관리자만) */}
+      {user.user_type === 'admin' && (
+        <button 
+          className="admin-btn"
+          onClick={() => navigate('/admin')}
+          title="관리자 페이지"
+        >
+          어드민
+        </button>
+      )}
+
+      <button onClick={onLogout} className="logout-btn-small">로그아웃</button>
+    </div>
+  )
+})
 
 UserMenu.displayName = 'UserMenu'
 
@@ -115,7 +143,7 @@ function Navbar({ user, onLogout }) {
           {!user ? (
             <Link to="/login" className="login-btn">로그인</Link>
           ) : (
-            <UserMenu user={user} onLogout={onLogout} />
+            <UserMenu user={user} onLogout={onLogout} navigate={navigate} />
           )}
         </div>
       </div>

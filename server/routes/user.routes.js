@@ -20,6 +20,7 @@ router.get('/:id', userController.getUserById);
 
 // 유저 정보 수정
 router.put('/:id', userController.updateUser);
+router.patch('/:id', userController.updateUser);  // PATCH도 지원
 
 // 비밀번호 변경
 router.put('/:id/password', userController.updatePassword);

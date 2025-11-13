@@ -253,3 +253,24 @@
   }
 }
 
+/* 주문 목록 보기 버튼 */
+.view-orders-btn {
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  margin: 40px auto 0;
+  display: block;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-orders-btn:hover {
+  background-color: #333;
+}
+

@@ -104,7 +104,11 @@ shopping-mall-demo/
 
 ### Server (.env)
 ```env
+# MongoDB 연결 (우선순위: MONGODB_ATLAS_URL > MONGODB_URI > localhost)
+MONGODB_ATLAS_URL=your_mongodb_atlas_connection_string
+# 또는 로컬 MongoDB
 MONGODB_URI=mongodb://localhost:27017/shopping-mall
+
 JWT_SECRET=your_jwt_secret_here
 PORT=5001
 
@@ -119,6 +123,11 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 NODE_ENV=development
 ```
+
+**MongoDB 연결 우선순위:**
+1. `MONGODB_ATLAS_URL` - MongoDB Atlas 클라우드 DB (우선)
+2. `MONGODB_URI` - 커스텀 MongoDB 연결 문자열
+3. `mongodb://localhost:27017/shopping-mall` - 로컬 MongoDB (기본값)
 
 ## 📝 API 문서
 

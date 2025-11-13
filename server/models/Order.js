@@ -139,10 +139,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: {
-      values: ['pending', 'confirmed', 'preparing', 'shipping', 'delivered', 'cancelled'],
+      values: ['confirmed', 'preparing', 'shipping', 'delivered', 'cancelled'],
       message: '{VALUE}는 유효한 주문 상태가 아닙니다'
     },
-    default: 'pending'
+    default: 'confirmed'
   },
   
   // 배송 추적

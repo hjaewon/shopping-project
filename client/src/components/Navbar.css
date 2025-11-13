@@ -139,7 +139,8 @@
 .user-menu {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 12px;
+  position: relative;
 }
 
 .user-welcome {
@@ -148,19 +149,46 @@
   font-weight: 500;
 }
 
-.admin-btn {
-  padding: 0.5rem 1rem;
-  background-color: #1976d2;
-  color: #ffffff;
-  text-decoration: none;
+/* 마이 버튼 (모든 유저) */
+.my-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #000;
+  color: white;
+  border: none;
   border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.my-btn:hover {
+  background-color: #333;
+}
+
+.my-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 어드민 버튼 */
+.admin-btn {
+  padding: 8px 16px;
+  background-color: #FF6B6B;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .admin-btn:hover {
-  background-color: #1565c0;
+  background-color: #ff5252;
 }
 
 .logout-btn-small {

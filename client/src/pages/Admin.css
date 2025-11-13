@@ -371,3 +371,473 @@
   outline: none;
 }
 
+/* ==================== 주문 관리 섹션 ==================== */
+.orders-management {
+  margin-top: 24px;
+}
+
+.orders-table-wrapper {
+  background: white;
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.admin-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.admin-orders-table thead {
+  background-color: #f5f5f5;
+}
+
+.admin-orders-table th {
+  padding: 16px 12px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+}
+
+.admin-orders-table td {
+  padding: 16px 12px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.admin-orders-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.admin-orders-table .order-number {
+  font-weight: 600;
+  color: #000;
+}
+
+.admin-orders-table .product-info {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-orders-table .product-image-cell {
+  padding: 8px 12px;
+}
+
+.admin-orders-table .product-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #f0f0f0;
+  display: block;
+}
+
+.admin-orders-table .amount {
+  font-weight: 600;
+  color: #000;
+}
+
+/* 주문 상태 뱃지 */
+.status-badge-admin {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.status-badge-admin.confirmed {
+  background-color: #E3F2FD;
+  color: #1976D2;
+}
+
+.status-badge-admin.preparing {
+  background-color: #FFF3E0;
+  color: #F57C00;
+}
+
+.status-badge-admin.shipping {
+  background-color: #FFF3E0;
+  color: #F57C00;
+}
+
+.status-badge-admin.delivered {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.status-badge-admin.cancelled {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
+
+/* 결제 상태 뱃지 */
+.payment-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.payment-badge.completed {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.payment-badge.pending {
+  background-color: #FFF3E0;
+  color: #F57C00;
+}
+
+.payment-badge.failed {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
+
+.payment-badge.refunded {
+  background-color: #F5F5F5;
+  color: #666;
+}
+
+.action-link {
+  background: none;
+  border: none;
+  color: #1976D2;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.action-link:hover {
+  color: #1565C0;
+}
+
+.empty-state {
+  padding: 80px 20px;
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+}
+
+.loading-container {
+  padding: 80px 20px;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}
+
+/* 주문 상태 변경 select */
+.status-select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  background-color: white;
+  transition: border-color 0.2s;
+}
+
+.status-select:hover {
+  border-color: #000;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #000;
+}
+
+/* ==================== 사용자 관리 섹션 ==================== */
+.users-management {
+  margin-top: 24px;
+}
+
+.users-table-wrapper {
+  background: white;
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.admin-users-table thead {
+  background-color: #f5f5f5;
+}
+
+.admin-users-table th {
+  padding: 16px 12px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+}
+
+.admin-users-table td {
+  padding: 16px 12px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.admin-users-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.user-type-select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  background-color: white;
+  transition: border-color 0.2s;
+}
+
+.user-type-select:hover {
+  border-color: #000;
+}
+
+.user-type-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.user-type-badge.admin {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
+
+.user-type-badge.customer {
+  background-color: #E3F2FD;
+  color: #1976D2;
+}
+
+/* ==================== 모달 ==================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.modal-body {
+  padding: 32px;
+}
+
+.detail-section {
+  margin-bottom: 32px;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-section h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #000;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.detail-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+}
+
+.detail-value {
+  font-size: 15px;
+  color: #000;
+  word-break: break-word;
+}
+
+.order-items-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-item-detail {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.order-item-detail img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f0f0f0;
+}
+
+.item-detail-info {
+  flex: 1;
+}
+
+.item-detail-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 8px 0;
+}
+
+.item-detail-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0;
+}
+
+.item-detail-info .item-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.payment-summary {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 15px;
+  color: #666;
+}
+
+.payment-row:last-child {
+  border-bottom: none;
+}
+
+.payment-row.total {
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 2px solid #000;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
+.transaction-id {
+  font-family: monospace;
+  font-size: 13px;
+  color: #666;
+}
+
+/* 모달 반응형 */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+  }
+
+  .modal-header,
+  .modal-body {
+    padding: 20px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-item-detail {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+

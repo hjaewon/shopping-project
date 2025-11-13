@@ -47,7 +47,7 @@ function Register() {
         email: formData.email,
         name: formData.name,
         password: formData.password,
-        user_type: formData.user_type,
+        user_type: 'customer',  // 항상 customer로 회원가입
         address: formData.address || undefined
       })
 
@@ -141,18 +141,6 @@ function Register() {
             </div>
           </div>
 
-          <div className="input-group">
-            <label>회원 유형</label>
-            <select
-              name="user_type"
-              value={formData.user_type}
-              onChange={handleChange}
-              required
-            >
-              <option value="customer">일반 회원</option>
-              <option value="admin">관리자</option>
-            </select>
-          </div>
 
           <div className="input-group">
             <label>주소 (선택)</label>

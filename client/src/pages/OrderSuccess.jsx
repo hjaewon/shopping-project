@@ -141,6 +141,11 @@ function OrderSuccess() {
             </div>
           </div>
         </div>
+
+        {/* 주문 목록 보기 버튼 */}
+        <button className="view-orders-btn" onClick={() => navigate('/orders')}>
+          주문 목록 보기
+        </button>
       </div>
     </div>
   )

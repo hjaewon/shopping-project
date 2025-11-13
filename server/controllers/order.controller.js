@@ -82,7 +82,7 @@ exports.createOrder = async (req, res) => {
 
     // 결제 검증 (포트원 API)
     let paymentStatus = 'pending';
-    let orderStatus = 'pending';
+    let orderStatus = 'confirmed';  // 기본값을 confirmed로 변경
     let verifiedAmount = 0;
 
     if (payment.transactionId) {
@@ -438,7 +438,7 @@ exports.updateOrderStatus = async (req, res) => {
     }
 
     // 유효한 상태값 확인
-    const validStatuses = ['pending', 'confirmed', 'preparing', 'shipping', 'delivered', 'cancelled'];
+    const validStatuses = ['confirmed', 'preparing', 'shipping', 'delivered', 'cancelled'];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({
         success: false,
